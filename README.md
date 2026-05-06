@@ -237,3 +237,13 @@ docker exec -it kafka kafka-console-consumer \
 - Spring Kafka
 - Apache Kafka 7.4.0 (Confluent)
 - Docker / Docker Compose
+
+---
+
+## 최근 정리한 부분
+
+Kafka 실습에서 직접 확인한 흐름과 아직 다루지 않은 범위를 분리했습니다.
+
+- `SensorConsumerTest`를 추가해 비정상 온도 메시지가 DLQ로 이동하는 흐름을 검증했습니다.
+- GitHub Actions CI를 추가해 테스트 실행 흐름을 남겼습니다.
+- 실습으로 확인한 부분과 아직 다루지 않은 부분은 [Kafka 실습 정리 노트](docs/scope.md)에 정리했습니다.
