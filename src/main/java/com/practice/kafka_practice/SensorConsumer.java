@@ -28,14 +28,14 @@ public class SensorConsumer {
                 key, message, partition, offset);
 
         try {
-            processData(key, message);
+            validateTemperature(message);
         } catch (Exception e) {
             log.error("[Consumer] 처리 실패 - deviceId: {}, 원인: {} → DLQ 전송", key, e.getMessage());
             kafkaTemplate.send(DLQ_TOPIC, key, message);
         }
     }
 
-    private void processData(String deviceId, String message) {
+    void validateTemperature(String message) {
         // 온도가 40도 이상이면 처리 실패로 간주 (DLQ 테스트용)
         if (message.contains("temp:")) {
             double temp = Double.parseDouble(message.split(":")[1]);
@@ -43,6 +43,5 @@ public class SensorConsumer {
                 throw new IllegalArgumentException("비정상 온도 감지: " + temp);
             }
         }
-        log.info("[Consumer] 처리 완료 - deviceId: {}", deviceId);
     }
 }
